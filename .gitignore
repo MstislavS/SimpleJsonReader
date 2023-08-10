@@ -7,3 +7,8 @@
 /.vs
 /JsonReader.App/JsonReader.App.csproj.user
 /JsonReader.App/.vs
+/JsonReader.Common/bin
+/JsonReader.Common/obj
+/JsonReader.Model/obj
+/JsonReader.Model/bin
+/JsonReader.ViewModel/obj

@@ -1,12 +1,43 @@
 ﻿<Window x:Class="JsonReader.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JsonReader.App"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:vm="clr-namespace:JsonReader.App.ViewModels"
+        Title="MainWindow"
+        Width="800"
+        Height="450"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
+                                         IsDesignTimeCreatable=False}"
+        mc:Ignorable="d">
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded">
+            <b:InvokeCommandAction Command="{Binding Path=LoadCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <Button Margin="5"
+                    Padding="100,10"
+                    HorizontalAlignment="Center"
+                    Command="{Binding ReadFileCommand}"
+                    Content="Read" />
+            <Button Margin="5"
+                    Padding="50,10"
+                    HorizontalAlignment="Center"
+                    Command="{Binding ReadFileCommand}"
+                    Content="Cancel Tracking" />
+        </StackPanel>
+        <TextBox Grid.Row="1"
+                 Margin="5"
+                 AcceptsReturn="True"
+                 Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 TextWrapping="Wrap" />
     </Grid>
 </Window>
