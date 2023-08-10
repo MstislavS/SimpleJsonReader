@@ -43,7 +43,7 @@ namespace JsonReader.App.ViewModels
         /// <returns>The command.</returns>
         protected ICommand CreateAsyncCommand(Action executeFunc, Func<bool> canExecute = null)
         {
-            return new AsyncCommand(async () => await Task.Run(() => executeFunc), canExecute);
+            return new AsyncCommand(async () => await Task.Run(() => executeFunc()), canExecute);
         }
 
         protected bool SetProperty<T>(ref T location,

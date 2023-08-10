@@ -8,6 +8,7 @@
         Title="MainWindow"
         Width="800"
         Height="450"
+        Closed="Window_Closed"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
                                          IsDesignTimeCreatable=False}"
         mc:Ignorable="d">
@@ -31,7 +32,7 @@
             <Button Margin="5"
                     Padding="50,10"
                     HorizontalAlignment="Center"
-                    Command="{Binding ReadFileCommand}"
+                    Command="{Binding CancelFileCommand}"
                     Content="Cancel Tracking" />
         </StackPanel>
         <TextBox Grid.Row="1"

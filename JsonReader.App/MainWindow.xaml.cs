@@ -14,5 +14,10 @@ namespace JsonReader.App
             InitializeComponent();
             DataContext = new MainViewModel(new JsonTracker("json.json"));
         }
+
+        private void Window_Closed(object sender, System.EventArgs e)
+        {
+            ((MainViewModel)DataContext).Dispose();
+        }
     }
 }

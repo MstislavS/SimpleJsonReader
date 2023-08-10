@@ -8,10 +8,9 @@ namespace JsonReader.App.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private IJsonTracker _jsonTracker;
+
         private string _text;
-
         public ICommand LoadCommand { get; }
-
         public ICommand ReadFileCommand { get; }
         public ICommand CancelFileCommand { get; }
 
@@ -25,8 +24,6 @@ namespace JsonReader.App.ViewModels
             CancelFileCommand = CreateAsyncCommand(CancelTracking);
 
             _jsonTracker.TextChanged += JsonTracker_TextChanged;
-            _jsonTracker.StartAsync();
-
         }
 
         private void CancelTracking()
@@ -46,7 +43,7 @@ namespace JsonReader.App.ViewModels
 
         private void OnLoaded()
         {
-            
+            _jsonTracker.StartAsync();
         }
 
 
@@ -57,6 +54,14 @@ namespace JsonReader.App.ViewModels
         {
             get => _text;
             set => SetProperty(ref _text, value);
+        }
+
+        protected override void DisposeManagedResources()
+        {
+            _jsonTracker.Stop();
+            _jsonTracker.TextChanged -= JsonTracker_TextChanged;
+
+            base.DisposeManagedResources();
         }
     }
 }

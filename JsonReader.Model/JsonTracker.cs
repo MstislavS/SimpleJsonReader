@@ -19,8 +19,6 @@ namespace JsonReader.Model
             _timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
         }
 
-
-
         public event EventHandler<string> TextChanged = delegate { };
 
         public string ReadText()
