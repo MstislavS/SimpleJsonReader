@@ -25,11 +25,11 @@ namespace JsonReader.UnitTests
 
             // Act
             File.AppendAllText(path, " ");
+
+            // Assert
             // Add a little bit bigger period (+1s)
             var delay = JsonTracker.TrackingPeriod.Add(TimeSpan.FromSeconds(1));
             await Task.Delay(delay);
-
-            // Assert
             Assert.True(textChanged, "Text changes have not been changed");
         }
     }
