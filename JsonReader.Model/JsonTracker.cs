@@ -9,15 +9,13 @@ namespace JsonReader.Model
         PeriodicTimer _timer;
         CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
-        public static readonly TimeSpan TrackingPeriod = TimeSpan.FromSeconds(2);
-
-        public JsonTracker(string path) 
+        public JsonTracker(string path, TimeSpan trackingPeriod) 
         {
             if (!File.Exists(path))
                 throw new ArgumentException($"The file '{path}' doesn't exist");
 
             _filePath = path;
-            _timer = new PeriodicTimer(TrackingPeriod);
+            _timer = new PeriodicTimer(trackingPeriod);
         }
 
         public string JsonFilePath => _filePath;

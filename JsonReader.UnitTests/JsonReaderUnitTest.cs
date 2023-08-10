@@ -1,7 +1,4 @@
-using JsonReader.Common;
 using JsonReader.Model;
-using System.ComponentModel.DataAnnotations;
-using Xunit.Sdk;
 
 namespace JsonReader.UnitTests
 {
@@ -16,21 +13,21 @@ namespace JsonReader.UnitTests
         public async Task TrackingFileChange_Success()
         {
             // Arrange
-            var textChanged = false;
-            var path = JsonReaderConstants.JsonFilePath;
-            var tracker = new JsonTracker(path);
+            var textChanged = new AutoResetEvent(false);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "json-test.json");
+            var tracker = new JsonTracker(path, TimeSpan.FromMilliseconds(3));
             tracker.StartAsync();
-            tracker.TextChanged += (s, e) => textChanged = true;
-            Assert.False(textChanged);
+            tracker.TextChanged += (s, e) => textChanged.Set();
+            var wasRaised = textChanged.WaitOne(1);
+            Assert.False(wasRaised);
 
             // Act
-            File.AppendAllText(path, " ");
+            File.AppendAllText(path, "+");
 
             // Assert
-            // Add a little bit bigger period (+1s)
-            var delay = JsonTracker.TrackingPeriod.Add(TimeSpan.FromSeconds(1));
-            await Task.Delay(delay);
-            Assert.True(textChanged, "Text changes have not been changed");
+            wasRaised = textChanged.WaitOne(TimeSpan.FromSeconds(3));
+            Assert.True(wasRaised, "Text changes have not been changed");
+
         }
     }
 }

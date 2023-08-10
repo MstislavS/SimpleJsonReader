@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonReader.Model", "JsonRea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonReader.Common", "JsonReader.Common\JsonReader.Common.csproj", "{49206B66-1D15-4372-A894-0D7C8C3CC388}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonReader.UnitTests", "JsonReader.UnitTests\JsonReader.UnitTests.csproj", "{1F9BB9F9-A538-41F7-B939-AC7E6B77F2E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonReader.UnitTests", "JsonReader.UnitTests\JsonReader.UnitTests.csproj", "{1F9BB9F9-A538-41F7-B939-AC7E6B77F2E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

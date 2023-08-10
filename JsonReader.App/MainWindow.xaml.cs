@@ -13,7 +13,7 @@ namespace JsonReader.App
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(new JsonTracker(JsonReaderConstants.JsonFilePath));
+            DataContext = new MainViewModel(new JsonTracker(JsonReaderConstants.JsonFilePath, JsonReaderConstants.TrackingPeriod));
         }
 
         private void Window_Closed(object sender, System.EventArgs e)
