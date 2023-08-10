@@ -9,7 +9,7 @@ namespace JsonReader.Model
         PeriodicTimer _timer;
         CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
-        public JsonTracker(string path, TimeSpan trackingPeriod) 
+        public JsonTracker(string path, TimeSpan trackingPeriod)
         {
             if (!File.Exists(path))
                 throw new ArgumentException($"The file '{path}' doesn't exist");
@@ -30,8 +30,8 @@ namespace JsonReader.Model
         public async Task StartAsync()
         {
             CheckAndReadJsonFile();
-            
-            while(await _timer.WaitForNextTickAsync(_cancellationTokenSource.Token))
+
+            while (await _timer.WaitForNextTickAsync(_cancellationTokenSource.Token))
             {
                 CheckAndReadJsonFile();
             }
@@ -44,12 +44,12 @@ namespace JsonReader.Model
 
         private void CheckAndReadJsonFile()
         {
-            if(File.Exists(_filePath))
+            if (File.Exists(_filePath))
             {
                 var time = File.GetLastWriteTime(_filePath);
                 if (time > _lastModificationTime)
                 {
-                    _lastModificationTime= time;
+                    _lastModificationTime = time;
                     var handler = TextChanged;
                     handler(this, File.ReadAllText(_filePath));
                 }
