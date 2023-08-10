@@ -1,4 +1,5 @@
 ﻿using JsonReader.App.ViewModels;
+using JsonReader.Common;
 using JsonReader.Model;
 using System.Windows;
 
@@ -12,7 +13,7 @@ namespace JsonReader.App
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(new JsonTracker("json.json"));
+            DataContext = new MainViewModel(new JsonTracker(JsonReaderConstants.JsonFilePath));
         }
 
         private void Window_Closed(object sender, System.EventArgs e)

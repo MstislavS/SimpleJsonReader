@@ -4,6 +4,8 @@
     {
         Task StartAsync();
 
+        string JsonFilePath { get; }
+
         event EventHandler<string> TextChanged;
         void Stop();
 

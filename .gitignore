@@ -12,3 +12,5 @@
 /JsonReader.Model/obj
 /JsonReader.Model/bin
 /JsonReader.ViewModel/obj
+/JsonReader.UnitTests/obj
+/JsonReader.UnitTests/bin

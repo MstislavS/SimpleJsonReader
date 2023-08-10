@@ -1,6 +1,5 @@
 ﻿using JsonReader.Common;
 using JsonReader.Model.Interfaces;
-using System;
 using System.Windows.Input;
 
 namespace JsonReader.App.ViewModels
@@ -47,14 +46,13 @@ namespace JsonReader.App.ViewModels
         }
 
 
-        /// <summary>
-        /// Gets the JSON text.
-        /// </summary>
         public string Text
         {
             get => _text;
             set => SetProperty(ref _text, value);
         }
+
+        public string FilePath => _jsonTracker.JsonFilePath;
 
         protected override void DisposeManagedResources()
         {
