@@ -5,8 +5,8 @@ namespace JsonReader.App.Commands
 {
     public interface IAsyncCommand : ICommand
     {
-        Task ExecuteAsync();
-
         bool CanExecute();
+
+        Task ExecuteAsync();
     }
 }

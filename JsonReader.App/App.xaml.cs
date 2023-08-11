@@ -16,8 +16,12 @@ namespace JsonReader.App
 
         private void SetupExceptionHandling()
         {
+            // Simple exception handling
+
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
                 Console.WriteLine($"Exception in UnhandledException {e.ExceptionObject}");
+            };
 
             DispatcherUnhandledException += (s, e) =>
             {

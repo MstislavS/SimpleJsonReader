@@ -2,13 +2,13 @@
 {
     public interface IJsonTracker
     {
-        Task StartAsync();
+        event EventHandler<string> TextChanged;
 
         string JsonFilePath { get; }
 
-        event EventHandler<string> TextChanged;
-        void Stop();
-
         string ReadText();
+
+        Task StartAsync();
+        void Stop();
     }
 }

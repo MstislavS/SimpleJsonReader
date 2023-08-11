@@ -6,18 +6,15 @@ namespace JsonReader.App.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private IJsonTracker _jsonTracker;
+        private readonly IJsonTracker _jsonTracker;
 
         private string _text;
-        public ICommand LoadCommand { get; }
-        public ICommand ReadFileCommand { get; }
-        public ICommand CancelFileCommand { get; }
-
         public MainViewModel(IJsonTracker jsonTracker)
         {
             Argument.NotNull(jsonTracker, nameof(jsonTracker));
             _text = string.Empty;
             _jsonTracker = jsonTracker;
+
             LoadCommand = CreateAsyncCommand(OnLoaded);
             ReadFileCommand = CreateAsyncCommand(ReadFile);
             CancelFileCommand = CreateAsyncCommand(CancelTracking);
@@ -25,14 +22,27 @@ namespace JsonReader.App.ViewModels
             _jsonTracker.TextChanged += JsonTracker_TextChanged;
         }
 
+        public ICommand CancelFileCommand { get; }
+        public string FilePath => _jsonTracker.JsonFilePath;
+        public ICommand LoadCommand { get; }
+        public ICommand ReadFileCommand { get; }
+        public string Text
+        {
+            get => _text;
+            set => SetProperty(ref _text, value);
+        }
+
+        protected override void DisposeManagedResources()
+        {
+            _jsonTracker.Stop();
+            _jsonTracker.TextChanged -= JsonTracker_TextChanged;
+
+            base.DisposeManagedResources();
+        }
+
         private void CancelTracking()
         {
             _jsonTracker.Stop();
-        }
-
-        private void ReadFile()
-        {
-            Text = _jsonTracker.ReadText();
         }
 
         private void JsonTracker_TextChanged(object? sender, string newText)
@@ -42,24 +52,12 @@ namespace JsonReader.App.ViewModels
 
         private void OnLoaded()
         {
-            _jsonTracker.StartAsync();
+            _ = _jsonTracker.StartAsync();
         }
 
-
-        public string Text
+        private void ReadFile()
         {
-            get => _text;
-            set => SetProperty(ref _text, value);
-        }
-
-        public string FilePath => _jsonTracker.JsonFilePath;
-
-        protected override void DisposeManagedResources()
-        {
-            _jsonTracker.Stop();
-            _jsonTracker.TextChanged -= JsonTracker_TextChanged;
-
-            base.DisposeManagedResources();
+            Text = _jsonTracker.ReadText();
         }
     }
 }

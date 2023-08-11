@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Style TargetType="Button">
+        <Style.Setters>
+            <Setter Property="Margin"
+                    Value="5" />
+            <Setter Property="Padding"
+                    Value="50,10" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsPressed"
+                     Value="True">
+                <Trigger.Setters>
+                    <Setter Property="Opacity"
+                            Value="0.5" />
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

@@ -2,12 +2,9 @@
 {
     public abstract class DisposableBase : IDisposable
     {
-        /// <summary>
-        /// A synchronization object
-        /// </summary>
-        protected readonly object _syncRoot = new object();
-        private bool _isDisposed = false; // To detect redundant calls
+        protected readonly object _syncRoot = new();
         private bool _disposing = false;
+        private bool _isDisposed = false;
 
         /// <summary>
         /// A finalizer which calls Dispose (as per Dispose pattern)
@@ -26,12 +23,16 @@
             get
             {
                 lock (_syncRoot)
+                {
                     return _isDisposed;
+                }
             }
             private set
             {
                 lock (_syncRoot)
+                {
                     _isDisposed = value;
+                }
             }
         }
 
@@ -53,7 +54,9 @@
             // NOTE: this happens if object
             // was collected already
             if (_syncRoot == null)
+            {
                 return;
+            }
 
             lock (_syncRoot)
             {
@@ -64,7 +67,9 @@
                     try
                     {
                         if (disposing)
+                        {
                             DisposeManagedResources();
+                        }
 
                         DisposeUnmanagedResources();
                     }
