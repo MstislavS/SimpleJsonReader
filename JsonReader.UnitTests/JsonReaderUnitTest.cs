@@ -24,7 +24,7 @@ namespace JsonReader.UnitTests
             File.AppendAllText(path, "+");
 
             // Assert
-            wasRaised = textChanged.WaitOne(TimeSpan.FromSeconds(3));
+            wasRaised = textChanged.WaitOne(TimeSpan.FromMilliseconds(3));
             Assert.True(wasRaised, "Text changes have not been changed");
         }
     }
