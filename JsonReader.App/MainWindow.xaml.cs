@@ -13,12 +13,17 @@ namespace JsonReader.App
         public MainWindow()
         {
             InitializeComponent();
+            // TODO: Better to use container on getting JsonTracker model class. But I don't see such requirement in task
             DataContext = new MainViewModel(new JsonTracker(JsonReaderConstants.JsonFilePath, JsonReaderConstants.TrackingPeriod));
         }
 
         private void Window_Closed(object sender, System.EventArgs e)
         {
-            ((MainViewModel)DataContext).Dispose();
+            if(DataContext is MainViewModel viewModel)
+            {
+                // Clean the view model and stop monitor
+                viewModel.Dispose();
+            }
         }
     }
 }

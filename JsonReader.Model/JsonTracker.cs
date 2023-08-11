@@ -5,10 +5,9 @@ namespace JsonReader.Model
     public class JsonTracker : IJsonTracker
     {
         private readonly CancellationTokenSource _cancellationTokenSource = new();
-
         private readonly PeriodicTimer _timer;
-
         private DateTime _lastModificationTime = DateTime.MinValue;
+
         public JsonTracker(string path, TimeSpan trackingPeriod)
         {
             if (!File.Exists(path))

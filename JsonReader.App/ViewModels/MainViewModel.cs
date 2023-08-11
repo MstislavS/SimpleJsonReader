@@ -7,8 +7,8 @@ namespace JsonReader.App.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private readonly IJsonTracker _jsonTracker;
-
         private string _text;
+
         public MainViewModel(IJsonTracker jsonTracker)
         {
             Argument.NotNull(jsonTracker, nameof(jsonTracker));
@@ -23,13 +23,24 @@ namespace JsonReader.App.ViewModels
         }
 
         public ICommand CancelFileCommand { get; }
+
         public string FilePath => _jsonTracker.JsonFilePath;
+
         public ICommand LoadCommand { get; }
+
         public ICommand ReadFileCommand { get; }
+
         public string Text
         {
-            get => _text;
-            set => SetProperty(ref _text, value);
+            get
+            {
+                return _text;
+            }
+
+            set
+            {
+                SetProperty(ref _text, value);
+            }
         }
 
         protected override void DisposeManagedResources()

@@ -9,6 +9,7 @@
         string ReadText();
 
         Task StartAsync();
+
         void Stop();
     }
 }

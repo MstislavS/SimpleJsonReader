@@ -22,9 +22,7 @@ namespace JsonReader.App.ViewModels
             PropertyChangedEventHandler? handler = PropertyChanged;
 
             if (handler is null)
-            {
                 return;
-            }
 
             handler(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -41,16 +39,16 @@ namespace JsonReader.App.ViewModels
                                       bool alwaysSet = false)
         {
             if (!alwaysSet && EqualityComparer<T>.Default.Equals(location, value))
-            {
                 return false;
-            }
 
             T? oldValue = location;
             location = value;
 
             onChanged?.Invoke(oldValue, location);
 
+#pragma warning disable CS8604 // Property name can be null, in this case we update all binding for view model.
             OnPropertyChanged(propertyName);
+#pragma warning restore CS8604
 
             return true;
         }
