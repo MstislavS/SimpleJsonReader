@@ -9,7 +9,7 @@ namespace JsonReader.UnitTests
         /// </summary>
         /// <returns></returns>
         [Fact(DisplayName = "Successful tracking file changes")]
-        public void TrackingFileChange_Success()
+        public async Task TrackingFileChange_Success()
         {
             // Arrange
             AutoResetEvent textChanged = new(false);
