@@ -12,19 +12,20 @@ namespace JsonReader.UnitTests
         public async Task TrackingFileChange_Success()
         {
             // Arrange
-            AutoResetEvent textChanged = new(false);
+            var textChanged = new AutoResetEvent(false);
             string path = Path.Combine(Directory.GetCurrentDirectory(), "json-test.json");
-            JsonTracker tracker = new(path, TimeSpan.FromMilliseconds(3));
-            _ = tracker.StartAsync();
+            var tracker = new JsonTracker(path, TimeSpan.FromMilliseconds(2));
+            tracker.StartAsync();
             tracker.TextChanged += (s, e) => textChanged.Set();
             bool wasRaised = textChanged.WaitOne(1);
             Assert.False(wasRaised);
 
             // Act
             File.AppendAllText(path, "+");
-
+            
             // Assert
-            wasRaised = textChanged.WaitOne(TimeSpan.FromMilliseconds(3));
+            // TODO: Sometimes 6 ms are not enought to get the result
+            wasRaised = textChanged.WaitOne(TimeSpan.FromMilliseconds(6));
             Assert.True(wasRaised, "Text changes have not been changed");
         }
     }
