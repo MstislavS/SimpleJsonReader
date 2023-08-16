@@ -15,7 +15,7 @@ namespace JsonReader.UnitTests
             var textChanged = new AutoResetEvent(false);
             string path = Path.Combine(Directory.GetCurrentDirectory(), "json-test.json");
             var tracker = new JsonTracker(path, TimeSpan.FromMilliseconds(2));
-            tracker.StartAsync();
+            _ = tracker.StartAsync();
             tracker.TextChanged += (s, e) => textChanged.Set();
             bool wasRaised = textChanged.WaitOne(1);
             Assert.False(wasRaised);
@@ -27,6 +27,7 @@ namespace JsonReader.UnitTests
             // TODO: Sometimes 6 ms are not enought to get the result
             wasRaised = textChanged.WaitOne(TimeSpan.FromMilliseconds(6));
             Assert.True(wasRaised, "Text changes have not been changed");
+            tracker.Stop();
         }
     }
 }
